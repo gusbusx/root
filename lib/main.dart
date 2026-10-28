@@ -44,16 +44,44 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.light,
-          // 🚨 CRITICAL: NEVER REMOVE OR MODIFY
+          // Keep text scaling predictable and force the web demo to use a
+          // phone-sized viewport on wide desktop browsers.
           builder: (context, child) {
-            return MediaQuery(
-              data: MediaQuery.of(
-                context,
-              ).copyWith(textScaler: TextScaler.linear(1.0)),
+            final mediaQuery = MediaQuery.of(context);
+
+            final bool constrainWebDemo =
+                kIsWeb && mediaQuery.size.width > 430;
+
+            final double appWidth =
+                constrainWebDemo ? 430.0 : mediaQuery.size.width;
+            final double appHeight =
+                kIsWeb && mediaQuery.size.height > 900
+                    ? 900.0
+                    : mediaQuery.size.height;
+
+            final app = MediaQuery(
+              data: mediaQuery.copyWith(
+                size: Size(appWidth, appHeight),
+                textScaler: TextScaler.linear(1.0),
+              ),
               child: child!,
             );
+
+            if (!constrainWebDemo) {
+              return app;
+            }
+
+            return ColoredBox(
+              color: const Color(0xFFF2F2F2),
+              child: Center(
+                child: SizedBox(
+                  width: appWidth,
+                  height: appHeight,
+                  child: app,
+                ),
+              ),
+            );
           },
-          // 🚨 END CRITICAL SECTION
           debugShowCheckedModeBanner: false,
           routes: AppRoutes.routes,
           initialRoute: AppRoutes.initial,
