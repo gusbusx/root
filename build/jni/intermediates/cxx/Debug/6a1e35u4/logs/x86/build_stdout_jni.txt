@@ -1,0 +1,5 @@
+ninja: Entering directory `/Users/gusbus/.pub-cache/hosted/pub.dev/jni-1.0.0/android/.cxx/Debug/6a1e35u4/x86'
+[1/4] Building C object CMakeFiles/jni.dir/include/dart_api_dl.c.o
+[2/4] Building C object CMakeFiles/jni.dir/dartjni.c.o
+[3/4] Building C object CMakeFiles/jni.dir/third_party/global_jni_env.c.o
+[4/4] Linking C shared library /Users/gusbus/Desktop/root/build/jni/intermediates/cxx/Debug/6a1e35u4/obj/x86/libdartjni.so
